@@ -1,0 +1,72 @@
+﻿@using ECommerceApi.Model
+@model List<OrderDetail>
+
+
+    @{
+    ViewData["Title"] = "OrderDetailView";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<body >
+    <div class="btn btn-warning " style="margin-bottom:30px">
+        @Html.ActionLink("Add Order", "Add")
+    </div>
+<table  class="table">
+    <tr  style="background-color:khaki;padding:1%;">
+         
+         <td>
+            OrderDetailId
+        </td>
+       
+            <td>
+            CustomerId
+        </td>
+            <td>
+            ProductId
+        </td>
+        <td>
+            Quanity
+        </td>
+      
+         <td style="text-align:center">
+            Action
+       
+            Action
+        </td>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr class="nav-item">
+              <td>
+                @item.OrderDetailId
+            </td>
+       
+       
+            <td>
+                @item.CustomerId
+            </td>
+           <td>
+               @item.ProductId
+           </td>
+            <td>
+                @item.Quantity
+            </td>
+         
+              <td style="text-align:center">
+                <a class="btn btn-primary" href="/OrderDetailMvc/Update/@item.OrderDetailId">Edit</a>
+        
+                <a class="btn btn-danger" href="/OrderDetailMvc/DeleteOrderDetail/@item.OrderDetailId" onclick="deleteOrder()">Delete</a>
+            </td>
+            
+        </tr>
+    }
+</table>
+</body>
+
+            <script>
+            function deleteOrder() {
+                alert("Are you sure want to delete this");
+
+            }
+            </script>

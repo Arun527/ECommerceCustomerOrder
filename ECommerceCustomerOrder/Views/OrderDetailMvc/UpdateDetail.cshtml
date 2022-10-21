@@ -1,0 +1,50 @@
+﻿@using ECommerceApi.Model
+@model OrderDetail
+ @using(Html.BeginForm("UpdateDetail","OrderDetailMvc",FormMethod.Post))
+        {
+ <table>
+            <tr>
+                <td>Id</td>
+                <td>
+                    @Html.DisplayFor(model => model.OrderDetailId)
+                    @Html.HiddenFor(model => model.OrderDetailId)
+                </td>
+            </tr>
+         @*   <tr>
+                <td>OrderId</td>
+                <td>
+                    @Html.TextBoxFor(model => model.OrderId, new { required = "required" , maxlength = "20"} )
+                </td>
+            </tr>*@
+            <tr>
+                <td>CustomerId</td>
+                <td>
+                    @Html.TextBoxFor(model => model.CustomerId, new { required = "required" , maxlength = "20"} )
+                </td>
+            </tr>
+
+
+              <tr>
+                <td>ProductId</td>
+                <td>
+                    @Html.TextBoxFor(model => model.ProductId, new { required = "required" , maxlength = "20"} )
+                </td>
+            </tr>
+            <tr>
+                <td>Quantity</td>
+                <td>
+                    @Html.TextBoxFor(model => model.Quantity, new { required = "required" , maxlength = "20"} )
+                </td>
+            </tr>
+             <tr>
+                <td class="btn btn-primary">
+                <input type="submit" value="Create" class="btn btn-default" />
+                </td>
+             </tr>
+         
+            
+
+ </table>
+
+
+                }

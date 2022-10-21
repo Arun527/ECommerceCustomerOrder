@@ -1,0 +1,68 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model ECommerceApi.Model.Product
+@{
+    ViewData["Title"] = "AddProduct";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+    <body style="background-color:lightblue">
+
+    <div class="btn btn-warning " style="margin-left:85%">
+        @Html.ActionLink("Back to List", "CustomerView")
+        </div>
+
+        <div class="card-body " style=" margin-left:30%;margin-right:30% ;background-color:steelblue; color:white">
+            <h3 class="col-md-6 offset-3" style="margin-top:5%">     Registration form </h3>
+
+
+
+
+          @using(Html.BeginForm("AddProduct","ProductMvc",FormMethod.Post))
+            {
+
+
+                <div>
+                    <div align="center" class="col-md-12">
+
+                        <div class=" row m-5">
+                        <div class="col-md-6">Name<span style="color:red ;font-size:20px;"> * </span></div>
+                            <div class="col-md-6">
+                            @Html.TextBoxFor(model=>model.Name , new {@class="form-control", required = "required" , maxlength = "20"} )
+                            </div>
+                      
+                        </div>
+
+
+                        <div class="row m-5">
+                        <div class="col-md-6">Price<span style="color:red ;font-size:20px;"> * </span> </div>
+                        <div class="col-md-6">@Html.TextBoxFor(model=>model.Price ,new{@class="form-control",required="required",type="number", min="1",max="2147483647"})</div>
+                        </div>
+
+                        <div class=" justify-content-center col-md-6 offset-">  <input type="submit" class="btn btn-danger" value="Submit" /></div>
+                    </div>
+                </div>
+            }
+
+
+
+
+        </div>
+
+    </body>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+        </script>
+    }
+
+
+
+ 
+

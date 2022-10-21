@@ -1,0 +1,106 @@
+﻿@using ECommerceApi.Model
+@model List<InvoiceDetail>
+@{
+    ViewData["Title"] = "OrderDetailView";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<body>
+    <div class="btn btn-warning " style="margin-bottom:30px;">
+        @Html.ActionLink("Back to List", "CustomerView")
+    </div>
+    <table class="table" id="dataTable">
+
+
+        <thead style="background-color:khaki;padding:1%;">
+
+        <td style="background-color:khaki">
+            InvoiceNo
+        </td>
+        <td style="background-color:khaki">
+            OrderId
+        </td>
+        <td style="background-color:khaki">
+            OrderDate
+        </td>
+        <td style="background-color:khaki">
+            CustomerName
+        </td>
+        <td style="background-color:khaki">
+            ContactNumber
+        </td>
+        <td style="background-color:khaki">
+            ProductName
+        </td>
+        <td style="background-color:khaki">
+            price
+        </td>
+        <td style="background-color:khaki">
+            Quanity
+        </td>
+
+        <td style="background-color:khaki">
+            TotalPrice
+        </td>
+        </thead>
+
+        <tbody>
+
+
+            @foreach (var item in Model)
+            {
+                <tr class="nav-item ">
+                    <td>
+                        @item.InVoiceNo
+                    </td>
+                    <td>
+                        @item.OrderId
+                    </td>
+                    <td>
+                        @item.OrderDate
+                    </td>
+                    <td>
+                        @item.CustomerName
+                    </td>
+                    <td>
+                        @item.Contactnumber
+                    </td>
+                    <td>
+                        @item.ProductName
+                    </td>
+                    <td>
+                        @item.price
+                    </td>
+                    <td>
+                        @item.Quantity
+                    </td>
+                    <td>
+                        @item.TotalPrice
+                    </td>
+               </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+            </tr>
+
+        </tfoot>
+    </table>
+
+</body>
+
+
+
+@section scripts{
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css" />
+
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#dataTable").DataTable();
+        })
+    </script>
+}

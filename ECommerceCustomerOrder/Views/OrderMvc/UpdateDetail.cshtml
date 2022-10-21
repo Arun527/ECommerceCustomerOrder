@@ -1,0 +1,39 @@
+﻿@using ECommerceApi.Model
+@model Orders
+ @using(Html.BeginForm("Updatedetail","OrderMvc",FormMethod.Post))
+        {
+ <table>
+            <tr>
+                <td>Id</td>
+                <td>
+                    @Html.DisplayFor(model => model.OrderId)
+                    @Html.HiddenFor(model => model.OrderId)
+                </td>
+            </tr>
+            <tr>
+                <td>CustomerId</td>
+                <td>
+                    @Html.TextBoxFor(model => model.CustomerId, new { required = "required" , maxlength = "20"} )
+                </td>
+            </tr>
+            <tr>
+                <td>Orderdate</td>
+                <td>
+                    @Html.TextBoxFor(model => model.Orderdate, new { required = "required" , maxlength = "20"} )
+                </td>
+            </tr>
+
+
+
+             <tr>
+                <td class="btn btn-primary">
+                <input type="submit" value="Create" class="btn btn-default" />
+                </td>
+             </tr>
+         
+            
+
+ </table>
+
+
+                }

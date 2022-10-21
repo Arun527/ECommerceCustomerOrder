@@ -1,0 +1,109 @@
+﻿@using ECommerceApi.Model
+@model List<Product>
+
+@{
+    ViewData["Title"] = "ProductView";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<body >
+    <div class="btn btn-warning " style="margin-bottom:30px">
+        @Html.ActionLink("Add Product", "Add")
+    </div>
+<table class="table"   id="dataTable"> 
+    <thead style="background-color:khaki;padding:1%; ">
+            <tr style="background-color:khaki">
+                <td>
+                    ProductId
+
+                </td>
+                <td>
+                    ProductName
+
+                </td>
+                <td>
+                    Price
+                </td>
+
+                <td style="text-align:center">
+                    Action
+
+                </td>
+
+        </tr>
+    
+    </thead>
+
+    <tbody>
+
+   
+
+    @foreach (var item in Model)
+    {
+        <tr class="nav-item">
+            <td>
+                @item.ProductId
+            </td>
+            <td>
+                @item.Name
+            </td>
+       
+            <td>
+                @item.Price
+            </td>
+              <td style="text-align:center">
+                <a class="btn btn-primary" href="/Productmvc/Update/@item.ProductId">Edit</a>
+            
+                <a class="btn btn-danger"@* href="/Productmvc/deleteproduct/@item.ProductId"*@ onclick="deleteProduct(@item.ProductId)">Delete</a>
+            </td>
+            
+        </tr>
+    }
+    </tbody>
+        <tfoot>
+            <tr>
+             
+            </tr>
+        </tfoot>
+</table>
+</body>
+
+
+<script>
+   function deleteProduct(ProductId) {
+    let result = confirm("Are you sure you want to delete?");
+    if (result) {
+        $.ajax({
+            type: "get",
+            url: '/ProductMvc/DeleteProduct?id=' + ProductId,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (response) {
+                if (response.success == true) {
+                    location.reload();
+                }
+                else {
+                    alert(response.message);
+                }
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+    }
+}
+
+       </script>
+
+@section scripts{
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css" />
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+
+
+<script>
+    $(document).ready(function(){
+            $("#dataTable").DataTable();
+    })
+</script>
+}
