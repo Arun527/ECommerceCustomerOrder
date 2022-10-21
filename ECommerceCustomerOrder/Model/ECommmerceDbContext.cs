@@ -13,6 +13,10 @@ namespace ECommerceCustomerOrder.Model
         public DbSet<Product> Product { get; set; }
 
         public DbSet<Orders> orders { get; set; }
+
+
+
+
         public DbSet<OrderDetail> OrderDetail { get; set; }
     }
 }
