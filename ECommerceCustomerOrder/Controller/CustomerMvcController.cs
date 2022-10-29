@@ -26,7 +26,7 @@ namespace ECommerceCustomerOrder.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("CustomerView");
         }
 
         public IActionResult Login()
@@ -38,7 +38,7 @@ namespace ECommerceCustomerOrder.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto login)
         {
-            var user = _ICustomer.loginbyid(login.Name, login.Password);
+            var user = _ICustomer.loginbyid(login.ContactNumber, login.Password);
             if (user != null)
             {
                 var claims = new List<Claim>
@@ -98,7 +98,7 @@ namespace ECommerceCustomerOrder.Controllers
         
         }
 
-
+        [Authorize]
         public IActionResult CustomerView()
         {
             var customer=_ICustomer.GetCustomerDetail();
