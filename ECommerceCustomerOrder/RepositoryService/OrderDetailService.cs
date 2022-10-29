@@ -1,6 +1,6 @@
 ﻿using ECommerceApi.Model;
 using ECommerceApi.RepositoryInterface;
-using ECommerceCustomerOrder.Migrations;
+
 using ECommerceCustomerOrder.Model;
 
 namespace ECommerceApi.RepositoryService
@@ -35,9 +35,6 @@ namespace ECommerceApi.RepositoryService
             var obj = Db.OrderDetail.FirstOrDefault(x => x.OrderDetailId == Id);
             return obj;
         }
-
-
-
 
         public IEnumerable<InvoiceDetail> GetCustomerOrderDetailsById(int CustomerId)
         {

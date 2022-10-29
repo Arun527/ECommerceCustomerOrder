@@ -8,8 +8,6 @@ namespace ECommerceApi.Controller
     [ApiController]
     public class OrdersController : ControllerBase
     {
-
-        IProduct _IProduct;
         ICustomer _ICustomer;
         IOrders _IOrders;
         public OrdersController(IOrders Obj,ICustomer customer)
@@ -72,15 +70,8 @@ namespace ECommerceApi.Controller
 
              
             }
-
-
             var insert = _IOrders.InsertOrder(obj);
-            return Ok(insert);
-           
-          
-              
-            
-           
+            return Ok(insert);  
         }
 
         [HttpPut("Update")]
@@ -89,8 +80,7 @@ namespace ECommerceApi.Controller
             var update = _IOrders.GetOrderById(Obj.OrderId);
             if (update != null)
             {
-
-                return Ok(update);
+                 return Ok(update);
 
             }
             else
@@ -99,9 +89,7 @@ namespace ECommerceApi.Controller
                 msg.success = false;
                 msg.message = "This Order not registered";
                 return Ok(msg);
-                
             }
-           
         }
 
         [HttpDelete("Delete/{OrderId}")]
@@ -118,10 +106,6 @@ namespace ECommerceApi.Controller
             msg.success = false;
             msg.message = "This Order not registered";
             return Ok(msg);
-
-
-
         }
-
     }
 }

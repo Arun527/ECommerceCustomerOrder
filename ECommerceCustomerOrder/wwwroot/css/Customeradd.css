@@ -1,0 +1,57 @@
+﻿
+
+#card {
+    margin-left: 30%;
+    margin-right: 30%;
+    background-color: #ced4da;
+    color: black;
+    
+}
+#heading {
+    margin-top: 5%
+}
+
+#mandatory {
+    color: red;
+    font-size: 20px;
+}
+
+.colormandatory {
+    color: red;
+    font-size: 20px;
+}
+#backtolist {
+    margin-left: 10%
+}
+#ordercard {
+    margin-left: 35%;
+    margin-right: 10%;
+    background-color: #ced4da;
+}
+
+
+#orderaddform {
+    Width: 75%;
+    float: left;
+}
+
+#action {
+    background-color: khaki;
+    text-align: center
+}
+
+
+#errormsg {
+    color: red;
+    font-size: 20px;
+    text-align: center
+}
+
+#productadd {
+    display: none
+}
+
+a {
+    color: #0d6efd;
+    text-decoration: none !important;
+}

@@ -6,24 +6,22 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 <body >
-    <div class="btn btn-warning " style="margin-bottom:30px">
-        @Html.ActionLink("Add Order", "Add")
-    </div>
+   
 <table class="table" >
-    <tr  style="background-color:khaki;/*padding:3%;*/ ">
-         <td >
+        <tr id="header">
+         <th >
              OrderId
-         </td>
-         <td>
+         </th>
+         <th>
             CustomerId
-        </td>
-            <td>
+        </th>
+            <th>
             OrderDate
-        </td>
-         <td style="text-align:center">
+        </th>
+         <th style="text-align:center">
             Action
       
-        </td>
+        </th>
     </tr>
 
 
@@ -43,7 +41,7 @@
               <td style="text-align:center">
                 <a class="btn btn-primary" href="/Ordermvc/Update/@item.OrderId">Edit</a>
           
-                <a class="btn btn-danger" @* href="/OrderMvc/Delete/@item.OrderId" *@ onclick="deleteorder(@item.OrderId)">Delete</a>
+                <a class="btn btn-danger" onclick="deleteorder(@item.OrderId)">Delete</a>
             </td>
             
         </tr>
@@ -54,26 +52,5 @@
 </body>
 
 <script>
-   function deleteorder(OrderId) {
-    let result = confirm("Are you sure you want to delete?");
-    if (result) {
-        $.ajax({
-            type: "get",
-            url: '/OrderMvc/Delete?id=' +OrderId,
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function (response) {
-                if (response.success == true) {
-                    location.reload();
-                }
-                else {
-                    alert(response.message);
-                }
-            },
-            error: function () {
-                alert("error");
-            }
-        });
-    }
-}
+  
 </script>

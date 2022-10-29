@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ECommerceCustomerOrder.Migrations
 {
-    public partial class Initialcreate : Migration
+    public partial class Customer : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,8 +15,10 @@ namespace ECommerceCustomerOrder.Migrations
                 {
                     CustomerId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    RollId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ContactNumber = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false)
+                    ContactNumber = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,6 +68,20 @@ namespace ECommerceCustomerOrder.Migrations
                 {
                     table.PrimaryKey("PK_Product", x => x.ProductId);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Roll",
+                columns: table => new
+                {
+                    RollId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RollName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roll", x => x.RollId);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -81,6 +97,9 @@ namespace ECommerceCustomerOrder.Migrations
 
             migrationBuilder.DropTable(
                 name: "Product");
+
+            migrationBuilder.DropTable(
+                name: "Roll");
         }
     }
 }

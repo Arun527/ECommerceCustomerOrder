@@ -67,33 +67,33 @@ namespace ECommerceApi.RepositoryService
                 return Msg;
             }
 
-            if(product==null&& product1!= null)
+           else if (product != null && product1 != null)
             {
-                if (product == null && product1 != null)
-                {
-                    Msg.success = true;
-                    Msg.message = "Succsfully Updated";
-                    Product pro = GetProductDetailsById(Obj.ProductId);
-                    pro.Name = Obj.Name;
-                    pro.Price = Obj.Price;
-                    Db.Update(pro);
-                    Db.SaveChanges();
-                }
-                else
-                {
-                    Msg.success = false;
-                    Msg.message = "The product already Exists";
-                    return Msg;
+                Msg.success = true;
+                Msg.message = "Succsfully Updated";
+                Product pro = GetProductDetailsById(Obj.ProductId);
+                pro.Name = Obj.Name;
+                pro.Price = Obj.Price;
+                Db.Update(pro);
+                Db.SaveChanges();
+            }
+            else
+            {
+                Msg.success = false;
+                Msg.message = "The product already Exists";
+                return Msg;
 
-                }
-            }  
+            }
+              
 
             return Msg;
 
         }
 
-        public Product Updateproduct(Product Obj)
+        public Message Updateproduct(Product Obj)
         {
+            Message msg = new Message();
+            msg.success = false;
             Product pro = GetProductDetailsById(Obj.ProductId);
             if (Obj.ProductId != null)
             {
@@ -101,9 +101,14 @@ namespace ECommerceApi.RepositoryService
                 pro.Price = Obj.Price;
                 Db.Update(pro);
                 Db.SaveChanges();
-
+                return msg;
             }
-            return Obj;
+            else
+            {
+                msg.success = false;
+                msg.message = "Phone number already exist";
+                return msg;
+            }
         }
 
         public Message Deleteproduct(int Id)

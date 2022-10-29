@@ -1,0 +1,25 @@
+﻿#header {
+    background-color:khaki;
+}
+
+#headermargin {
+    margin-top: 30px
+}
+
+#button {
+    margin-bottom: 30px;
+    margin-left: 88%;
+    text-decoration: none;
+    /*clear: none;*/
+}
+
+#deletebutton {
+    text-align: center;
+}
+
+
+
+a {
+    color: #0d6efd;
+    text-decoration: none !important;
+} 

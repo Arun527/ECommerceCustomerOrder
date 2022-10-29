@@ -35,9 +35,21 @@ namespace ECommerceCustomerOrder.Migrations
                         .HasMaxLength(13)
                         .HasColumnType("nvarchar(13)");
 
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RollId")
+                        .HasColumnType("int");
 
                     b.HasKey("CustomerId");
 
@@ -107,6 +119,26 @@ namespace ECommerceCustomerOrder.Migrations
                     b.HasKey("ProductId");
 
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("ECommerceCustomerOrder.Model.Roll", b =>
+                {
+                    b.Property<int>("RollId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RollId"), 1L, 1);
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RollName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RollId");
+
+                    b.ToTable("Roll");
                 });
 #pragma warning restore 612, 618
         }

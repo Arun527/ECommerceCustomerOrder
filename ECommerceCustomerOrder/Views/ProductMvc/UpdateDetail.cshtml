@@ -1,44 +1,64 @@
 ﻿@using ECommerceApi.Model
 
 @model Product
-
-@using(Html.BeginForm("AddProduct" ,"ProductMvc",FormMethod.Post)){
-
-    <table>
-        <tbody>
-            <tr>
-                <td>
-                    Id
-                </td>
-                <td>
-                    @Html.DisplayFor(Model=>Model.ProductId)
-                    @Html.HiddenFor(Model=>Model.ProductId)
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>Name</label>
-                </td>
-                <td>
-                    @Html.TextBoxFor(Model=>Model.Name)
-                </td>
-            </tr>
-              <tr>
-                <td>
-                    <label>Price</label>
-                </td>
-                <td>
-                    @Html.TextBoxFor(Model=>Model.Price)
-                </td>
-            </tr>
-              <tr>
-                <td>
-                  
-                </td>
-                <td class="btn btn-success">
-                    <input type="submit">
-                </td>
-            </tr>
-        </tbody>
-    </table>
+@{
+    ViewData["Title"] = "AddProduct";
+    Layout = "~/Pages/Shared/_CustomerLayout.cshtml";
 }
+<div id="body">
+
+
+    <div class="btn btn-warning " id="heading">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
+            <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
+            <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z" />
+        </svg>
+        @Html.ActionLink("Back to List", "ProductView")
+    </div>
+
+
+    <div class="card-body " id="card">
+        <h3 class="col-md-6 offset-3" id="heading">     Registration form </h3>
+
+
+@using (Html.BeginForm("UpdateDetail", "ProductMvc", FormMethod.Post))
+{
+
+            <div>
+                <div align="center" class="col-md-12">
+
+
+                    <div class=" row m-5">
+                        <div class="col-md-6">Id<span id="mandatory"> * </span></div>
+                        <div class="col-md-6">
+                            @Html.DisplayFor(model => model.ProductId)
+                            @Html.HiddenFor(model => model.ProductId)
+                        </div>
+
+                    </div>
+
+                    <div class=" row m-5">
+                        <div class="col-md-6">Name<span id="mandatory"> * </span></div>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model=>model.Name , new {@class="form-control", required = "required" , maxlength = "20"} )
+                        </div>
+
+                    </div>
+
+
+                    <div class="row m-5">
+                        <div class="col-md-6">Price<span id="mandatory"> * </span> </div>
+                        <div class="col-md-6">@Html.TextBoxFor(model=>model.Price ,new{@class="form-control",required="required",type="number", min="1",max="2147483647"})</div>
+                    </div>
+
+                    <div class=" justify-content-center col-md-6 offset-">  <input type="submit" class="btn btn-danger" value="Submit" /></div>
+                </div>
+            </div>
+      
+}
+
+
+    </div>
+
+</div>
+

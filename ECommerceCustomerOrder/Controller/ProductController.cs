@@ -9,7 +9,6 @@ namespace ECommerceApi.Controller
     public class ProductController : ControllerBase
     {
         IProduct _IProduct;
-        ICustomer _ICustomer;
 
         public ProductController(IProduct Obj)
         {

@@ -56,8 +56,6 @@ namespace ECommerceApi.Controller
         [HttpGet("GetInvoice/{CustomerId}")]
         public IActionResult GetCustomerOrderDetailById(int CustomerId)
         {
-
-
             var order = _IOrderDetail.GetCustomerOrderDetailsById(CustomerId);
             if (order.Count() == 0)
             {
@@ -75,32 +73,6 @@ namespace ECommerceApi.Controller
         public IActionResult InsertOrderDetail(OrderRequest obj)
         {
             Message Obj = new Message();
-            //var order = _IOrders.GetOrderById(obj.OrderId);
-            //if (order == null)
-            //{
-            //    Obj.success = false;
-            //    Obj.message = "This Order id not registered";
-            //    return Ok(Obj);
-        
-            //}
-            //var Custmer = _ICustomer.GetCustomerDetailsById(obj.CustomerId);
-            //if (Custmer == null)
-            //{
-            //    Obj.success = false;
-            //    Obj.message = "This Customer not registered Please signup a customer detail";
-            //    return Ok(Obj);
-               
-            //}
-
-            //var product = _IProduct.GetProductDetailsById(obj.ProductId);
-            //if (product == null)
-            //{
-            //    Obj.success = false;
-            //    Obj.message = "This product  Not registered";
-            //    return Ok(Obj);
-               
-            //}
-
             var Order = _IOrderDetail.InsertOrderDetail(obj);
             Obj.success = true;
             Obj.message = "This Order  Added succesfully";
@@ -124,9 +96,6 @@ namespace ECommerceApi.Controller
             obj.success = false;
             obj.message = "This Order  not registered";
             return Ok(obj);
-          
-
-
         }
 
         [HttpDelete("Delete/{OrderDetaileId}")]

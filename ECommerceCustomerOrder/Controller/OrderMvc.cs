@@ -1,5 +1,6 @@
 ﻿using ECommerceApi.Model;
 using ECommerceApi.RepositoryInterface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceCustomerOrder.Controllers
@@ -16,6 +17,7 @@ namespace ECommerceCustomerOrder.Controllers
             _ICustomer = iCustomer;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             return View();

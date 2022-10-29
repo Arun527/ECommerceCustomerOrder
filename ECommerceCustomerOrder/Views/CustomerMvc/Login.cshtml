@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "AddCustomer";
+    Layout = "~/Pages/Shared/_CustomerLayout.cshtml";
+}
+<form method="post">
+<div class="card-body " id="card">
+    <h3 class="col-md-6 offset-3" id="heading">     Registration form </h3>
+<div>
+    <div align="center" class="col-md-12">
+
+        <div class=" row m-5">
+            <div class="col-md-6">Name<span id="mandatory"> * </span></div>
+            <div class="col-md-6">
+          
+                <input type="text" placeholder="Enter Username" name="Username" id="Username" required>
+
+
+            </div>
+
+        </div>
+        <div class=" row m-5">
+            <div class="col-md-6">Password<span id="mandatory"> * </span></div>
+            <div class="col-md-6">
+
+                <input type="text" placeholder="Enter Password" name="Username" id="Username" required>
+            </div>
+
+        </div>
+      
+
+        <div class=" justify-content-center col-md-6 offset-6">  <button>Login</button></div>
+    </div>
+</div>
+</div>
+
+
+
+</form>

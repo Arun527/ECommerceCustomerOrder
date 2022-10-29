@@ -24,9 +24,6 @@ namespace ECommerceCustomerOrder.Controllers
             _ICustomer = iCustomer;
             _IProduct = iProduct;
         }
-
-        
-
         public ActionResult Add()
         {
             ProductDTO types = new ProductDTO();
@@ -53,47 +50,12 @@ namespace ECommerceCustomerOrder.Controllers
 
         public IActionResult AddOrder([FromBody]OrderRequest request)
         {
-
-           // var order = _IOrders.GetOrderById(obj.OrderId);
-            //if ()
-            //{
-            //    Message Obj = new Message();
-            //    Obj.success = false;
-            //    Obj.message = "This Order id not registered";
-            //    return Ok(Obj);
-
-            //}
-            //var Custmer = _ICustomer.GetCustomerDetailsById(obj.CustomerId);
-            //if (Custmer == null)
-            //{
-            //    Message Obj = new Message();
-            //    Obj.success = false;
-            //    Obj.message = "This Customer not registered Please signup a customer detail";
-            //    return Ok(Obj);
-
-            //}
-
-            //var product = _IProduct.GetProductDetailsById(obj.ProductId);
-            //if (product == null)
-            //{
-            //    Message Obj = new Message();
-            //    Obj.success = false;
-            //    Obj.message = "This product  Not registered";
-            //    return Ok(Obj);
-
-            //}
-
-
             var Order = _IOrderDetail.InsertOrderDetail(request);
             return Json(Order);
-
-            //var customer = _IOrderDetail.InsertOrderDetail(obj);
-            //return RedirectToAction("OrderDetailView");
         }
 
         public IActionResult OrderDetailView()
         {
-           
             var customer= _IOrderDetail.GetOrderList();
             return View(customer);
         }
@@ -103,24 +65,19 @@ namespace ECommerceCustomerOrder.Controllers
             var invoice = _IOrderDetail.GetCustomerOrderList();
             return View(invoice);
         }
+
         [HttpGet]
         public IActionResult Update(int id)
         {
             var update = _IOrderDetail.GetOrderDetailsById(id);
             return View("UpdateDetail", update);
         }
-
-
-
         [HttpPost]
         public IActionResult UpdateDetail(OrderDetail update)
         {
             var updatedetail = _IOrderDetail.UpdateOrderDetail(update);
             return RedirectToAction("OrderDetailView");
         }
-
-
-
         public IActionResult DeleteOrderDetail(int id)
         {
             var delete = _IOrderDetail.DeleteOrderDetail(id);

@@ -8,9 +8,7 @@ namespace ECommerceApi.RepositoryInterface
         Product GetProductDetailsById(int productId);
         Product GetProductDetailsByName(string Name);
         Message InsertProductDetail(Product Obj);
-
-        Product Updateproduct(Product Obj);
-
+        Message Updateproduct(Product Obj);
         Message Deleteproduct(int productId);
     }
 }

@@ -1,171 +1,99 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
 @model ECommerceApi.Model.ProductDTO
-@*@using ECommerceApi.Model
-@model List<OrderDetail>*@
+
 @{
     ViewData["Title"] = "AddProduct";
-    Layout = "~/Pages/Shared/_Layout.cshtml";
+    Layout = "~/Pages/Shared/_CustomerLayout.cshtml";
 
 }
 
  
 
-<body style="background-color:lightblue">
-    <div class="btn btn-warning" style="margin-left:85%">
-        @Html.ActionLink("Back To List", "OrderDetailView")
-    </div>
-    <div class="card-body" style=" margin-left:30%;margin-right:30% ;background-color:#e1e9d3; color:white">
-        <h3 class="col-md-6 offset-3" style="margin-top:5%">     Registration form </h3>
-        <div id="errormsg" style="color:red;font-size:20px;text-align:center"></div>
+<div>
 
+    <div class="row">
+    <div class="col-md-9" >
 
-@*
-        @using (Html.BeginForm("AddOrder", "OrderDetailMvc", FormMethod.Post, new { id = "orderform" }))
-        {*@
+            <div class="btn btn-warning">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
+                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
+                    <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z" />
+                </svg>
 
-
-            <div>
-                <div align="center" class="col-md-12">
-
-                
-
-
-                    <div class="row m-5">
-                        <div class="col-md-6">Customer Name <span style="color:red ;font-size:20px;" > * </span> </div>
-                        <div class="col-md-6"> @Html.DropDownListFor(m=>m.CustomerId,Model.CustomerList,"Select Name", new {@class="form-control"})</div>
-                    </div>                   
-                    <div class=" dropdown row m-5">
-                        <div class=" col-md-6">Product Name<span style="color:red ;font-size:20px;"> * </span> </div>
-
-                        <div class="form-group col-md-6" > @Html.DropDownListFor(m=>m.ProductId,Model.ProductList, new {@class="form-control"})</div>
-                       
-                    </div> 
-                    <div class="row m-5">
-                        <div class="col-md-6">Quanity <span style="color:red ;font-size:20px;"> * </span></div>
-                        <div class="col-md-6">
-                            @Html.TextBoxFor(model=>model.Quantity , new { @class="form-control",type="number",min="1",max="2147483647", required = "required" , maxlength = "20"} )
-                        </div>
-                      
-
-                    </div>
-                    <div class="col-md-4 offset-6">
-                        <input id="showProduct" type="button" class="btn btn-danger" value="Add Product" />
-                    </div>
-                    <div id="showhideproduct">
-                            <table id="productList" class=" table-bordered m-3 " style="">
-                                <tr>
-                                    <td>Product Name</td>
-                                    <td>Quanity</td>
-                                </tr>
-                            </table>
-                        </div>
-                    <div class=" col-md-4 offset-5 m-2">  <input type="submit" id="btnsubmit" class="btn btn-danger" value="Submit" /></div>
-                </div>
+                @Html.ActionLink("Back To List", "OrderDetailView")
             </div>
-        @*}*@
+            <div class="card-body" id="ordercard">
+                <h3 class="col-md-6 offset-3 mt-3">     Registration form </h3>
+                <div id="errormsg" ></div>
 
 
 
+
+
+
+                <div>
+                    <div align="center" class="col-md-12">
+
+
+
+
+                        <div class="row m-5">
+                            <div class="col-md-6">Customer Name <span id="mandatory"> * </span> </div>
+                            <div class="col-md-6"> @Html.DropDownListFor(m=>m.CustomerId,Model.CustomerList,"Select Name", new {@class="form-control"})</div>
+                        </div>
+                        <div class=" dropdown row m-5">
+                            <div class=" col-md-6">Product Name<span id="mandatory"> * </span> </div>
+
+                            <div class="form-group col-md-6"> @Html.DropDownListFor(m=>m.ProductId,Model.ProductList, new {@class="form-control"})</div>
+
+                        </div>
+                        <div class="row m-5">
+                            <div class="col-md-6">Quanity <span id="mandatory"> * </span></div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model=>model.Quantity , new { @class="form-control",type="number",min="1",max="2147483647", required = "required" , maxlength = "20"} )
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-4 offset-6">
+                            <input id="showProduct" type="button" class="btn btn-danger" value="Add Product" />
+                        </div>
+
+                        <div class=" col-md-4 offset-5 m-2">  <input type="submit" id="btnsubmit" class="btn btn-danger" value="Submit" /></div>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <div class="col-md-3   mt-5">
+            <div id="showhideproduct" >
+                <table id="productList" class="table" style="display:none;background-color:#ced4da">
+                    <tr >
+                        <th id="action">Product Name</th>
+                        <th id="action">Quanity</th>
+                        <th id="action">Action</th>
+                    </tr>
+                 
+                </table>
+            </div>
+        </div>
 
     </div>
 
-</body>
-@*
-<div id="showhideproduct">
-</div>*@
-
- <script src="~/lib/jquery/dist/jquery.min.js"></script>
+</div>
 
 
-
-
-
-                            <script>   
-    $(document).ready(function() {
-        $('#btnsubmit').click(function (e) {
-            e.preventDefault();          
-     
-
-            var customerId = $('#CustomerId option:selected').val();
-            debugger;
-            if(customerId == null || customerId == 0 )
-            {
-                $('#errormsg').html("customer is required");
-                return;
-            }
-            if (productDetails == null || productDetails.length == 0)
-            {
-                $('#errormsg').html("product and quanity is required");
-                return;
-            }
-
-            var request = {
-                "CustomerId": customerId,
-                "Products": productDetails
-                   
-            };
-           debugger;
-            $.ajax({   
-
-                url:"/OrderDetailMvc/AddOrder",   
-                type: "POST",   
-                dataType: 'json',   
-                data: JSON.stringify(request),
-                contentType: 'application/json; charset=utf-8',
-                success: function (response) {
-              
-                     alert(response.message);
-                
-            
-            },
-            error: function () {
-                alert("error");
-            }
-        
-            });   
-
-        });   
-        var productDetails = [];
-        var obj;
-        $("#showProduct").click(function(){
-            $('#errormsg').html("");
-
-            var customerId = $('#CustomerId option:selected').val();
-            var customerName = $('#CustomerId :selected').text();
-            var productId = $('#ProductId :selected').val();
-            var productName = $('#ProductId option:selected').text();
-            var quantity = $("#Quantity").val();
-
-            if (customerId == null || customerId == 0) {
-                $('#errormsg').html("Customer is required");
-                return;
-            }
-            if (productId == null || productId == 0) {
-                $('#errormsg').html("Product is required");
-                return;
-            }
-            if (quantity == '' || quantity == '0') {
-                $('#errormsg').html("Quantity is required");
-                return;
-            }
-
-            $('#productList').append('<tr><td>' + productName + '</td><td>' + quantity + '</td></tr>');
-           
-
-            $("#showhideproduct");
-             obj = { "ProductId": productId, "Quantity": quantity }
-            productDetails.push(obj);
-
-            $("#ProductId").val('0');
-
-            $("#Quantity").val('0');  
-        });
- 
-
-    });   
-</script> 
 
 
 

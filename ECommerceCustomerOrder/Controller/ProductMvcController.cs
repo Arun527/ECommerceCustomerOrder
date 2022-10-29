@@ -36,16 +36,15 @@ namespace ECommerceCustomerOrder.Controllers
             Message Msg=new Message();
       
             var  Product =_IProduct.GetProductDetailsByName(obj.Name);
-
             if (Product == null)
             {
 
                 var insert = _IProduct.InsertProductDetail(obj);
                 Msg.success = true;
                 ViewBag.Message = Msg.message = "The product Added succesfully";
-                return View("Add");
+                return RedirectToAction("ProductView");
             }
-
+      
             else
             {
                 Msg.success = false;
@@ -64,7 +63,7 @@ namespace ECommerceCustomerOrder.Controllers
         public IActionResult Update(int id)
         {
             var update = _IProduct.GetProductDetailsById(id);
-            return View("Add", update);
+            return View("UpdateDetail", update);
         }
 
         [HttpPost]

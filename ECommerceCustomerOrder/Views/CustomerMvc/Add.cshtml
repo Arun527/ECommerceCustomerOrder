@@ -1,21 +1,22 @@
-﻿
-@model ECommerceApi.Model.Customer
+﻿@model ECommerceCustomerOrder.Model.LoginDto
 @{
     ViewData["Title"] = "AddCustomer";
-    Layout = "~/Pages/Shared/_Layout.cshtml";
+    Layout = "~/Pages/Shared/_CustomerLayout.cshtml";
 }
 
-<body   style="background-color:lightblue">
+<div >
+   
 
-    <div class="btn btn-warning " style="margin-left:85%">
+    <div class="btn btn-warning " id="heading">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
+            <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
+            <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z" />
+        </svg>
         @Html.ActionLink("Back to List", "CustomerView")
     </div>
 
-    <div class="card-body " style=" margin-left:30%;margin-right:30% ;background-color:steelblue; color:white">
-        <h3  class="col-md-6 offset-3" style="margin-top:5%" >     Registration form </h3>
-    
-       
-
+    <div class="card-body " id="card">
+        <h3 class="col-md-6 offset-3" id="heading">     Registration form </h3>
        
        @using(Html.BeginForm("AddCustomer","CustomerMvc",FormMethod.Post,new {id="Customerform"}))
         {
@@ -25,16 +26,39 @@
          <div align="center" class="col-md-12"  >
                
                <div class=" row m-5">
-                        <div class="col-md-6">Name<span style="color:red ;font-size:20px;"> * </span></div>
+                        <div class="col-md-6">Name<span id="mandatory"> * </span></div>
                         <div class="col-md-6" >
                             @Html.TextBoxFor(model=>model.Name , new { @class="form-control", required = "required" , maxlength = "20"} )
                         </div>
                     
                </div>
+                <div class=" row m-5">
+                    <div class="col-md-6">Roll<span id="mandatory"> * </span></div>
+                    <div class="col-md-6">
+                        @Html.DropDownListFor(model=>model.RollId ,Model.RollList ,new { @class="form-control", required = "required" , maxlength = "20"} )
+                    </div>
 
+                </div>
+                <div class=" row m-5">
+                    <div class="col-md-6">Password<span id="mandatory"> * </span></div>
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(model=>model.Password , new { @class="form-control", required = "required" , maxlength = "20"} )
+                    </div>
 
+                </div>
+                    <div class=" row m-5">
+                        <div class="col-md-6">Gender<span id="mandatory"> * </span></div>
+                        <div class="col-md-6">
+                            <label for="gender">Male</label>
+                            @Html.RadioButtonFor(m=>m.Gender ,"Male")
+                            <label for="gender">Female</label>
+                            @Html.RadioButtonFor(m=>m.Gender ,"Female")
+                      
+                        </div>
+
+                    </div>
                 <div  class="row m-5">
-                        <div class="col-md-6">Contact Number <span style="color:red ;font-size:20px;"> * </span></div>
+                        <div class="col-md-6">Contact Number <span id="mandatory"> * </span></div>
                           <div class="col-md-6">@Html.TextBoxFor(model=>model.ContactNumber, new { @class="form-control", required = "required" , maxlength = "20"}  )</div>
                  </div>
                    
@@ -48,43 +72,4 @@
       
     </div>
     
-</body>
-
-
-  <script src="~/lib/jquery/dist/jquery.min.js"></script>
-
-
-
-
-
-
-<script>   
-    $(document).ready(function() {   
-         $('#Customerform').submit(function(e) {   
-             e.preventDefault();
-             
-             var valdata = $("#Customerform").serialize();   
-            //var serializedForm = $(this).serialize();    
-           // alert(valdata);   
-            $.ajax({   
-                url: "/CustomerMvc/AddCustomer",
-                type: "POST",   
-                dataType: 'json',   
-                data: new FormData(Customerform),
-                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',   
-                data: valdata,
-                success: function (response) {
-              
-                     alert(response.message);
-                
-            
-            },
-            error: function () {
-                alert("error");
-            }
-        
-            });   
-
-        });   
-    });   
-</script> 
+</div>

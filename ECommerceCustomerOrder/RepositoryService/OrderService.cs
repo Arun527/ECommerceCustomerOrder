@@ -84,13 +84,6 @@ namespace ECommerceApi.RepositoryService
                 obj.message = ex.Message;
                 return obj;
             }
-
-
-
-
-
-
-
         }
 
     }

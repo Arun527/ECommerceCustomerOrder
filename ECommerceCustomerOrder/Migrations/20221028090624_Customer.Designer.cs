@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerceCustomerOrder.Migrations
 {
     [DbContext(typeof(ECommmerceDbContext))]
-    [Migration("20221012040300_Customer")]
+    [Migration("20221028090624_Customer")]
     partial class Customer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,13 @@ namespace ECommerceCustomerOrder.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RollId")
+                        .HasColumnType("int");
 
                     b.HasKey("CustomerId");
 
@@ -109,6 +116,26 @@ namespace ECommerceCustomerOrder.Migrations
                     b.HasKey("ProductId");
 
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("ECommerceCustomerOrder.Model.Roll", b =>
+                {
+                    b.Property<int>("RollId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RollId"), 1L, 1);
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RollName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RollId");
+
+                    b.ToTable("Roll");
                 });
 #pragma warning restore 612, 618
         }

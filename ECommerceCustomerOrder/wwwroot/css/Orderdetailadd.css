@@ -1,0 +1,21 @@
+﻿
+
+#card {
+    margin-left: 30%;
+    margin-right: 30%;
+    background-color: #ced4da;
+    color: black;
+}
+
+#heading {
+    margin-top: 5%
+}
+
+#mandatory {
+    color: red;
+    font-size: 20px;
+}
+
+#backtolist {
+    margin-left: 10%
+}
