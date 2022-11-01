@@ -1,6 +1,7 @@
 ﻿using ECommerceApi.Model;
 using ECommerceApi.RepositoryInterface;
 using ECommerceCustomerOrder.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using static System.Net.Mime.MediaTypeNames;
@@ -24,6 +25,8 @@ namespace ECommerceCustomerOrder.Controllers
             _ICustomer = iCustomer;
             _IProduct = iProduct;
         }
+
+        [Authorize]
         public ActionResult Add()
         {
             ProductDTO types = new ProductDTO();
@@ -47,19 +50,19 @@ namespace ECommerceCustomerOrder.Controllers
             return View(types);
 
         }
-
+        [Authorize]
         public IActionResult AddOrder([FromBody]OrderRequest request)
         {
             var Order = _IOrderDetail.InsertOrderDetail(request);
             return Json(Order);
         }
-
+        [Authorize]
         public IActionResult OrderDetailView()
         {
             var customer= _IOrderDetail.GetOrderList();
             return View(customer);
         }
-
+        [Authorize]
         public IActionResult Invoice()
         {
             var invoice = _IOrderDetail.GetCustomerOrderList();
@@ -67,17 +70,20 @@ namespace ECommerceCustomerOrder.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Update(int id)
         {
             var update = _IOrderDetail.GetOrderDetailsById(id);
             return View("UpdateDetail", update);
         }
         [HttpPost]
+        [Authorize]
         public IActionResult UpdateDetail(OrderDetail update)
         {
             var updatedetail = _IOrderDetail.UpdateOrderDetail(update);
             return RedirectToAction("OrderDetailView");
         }
+        [Authorize]
         public IActionResult DeleteOrderDetail(int id)
         {
             var delete = _IOrderDetail.DeleteOrderDetail(id);

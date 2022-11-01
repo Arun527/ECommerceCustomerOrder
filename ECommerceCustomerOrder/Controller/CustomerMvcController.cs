@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Principal;
+using System.Xml.Linq;
 
 namespace ECommerceCustomerOrder.Controllers
 {
@@ -30,32 +32,41 @@ namespace ECommerceCustomerOrder.Controllers
         }
 
         public IActionResult Login()
-        {
+       {
             return View();
         }
 
-
+        //public ActionResult Details()
+        //{
+        //    // reading a claim
+        //    var key2 = Claim.ClaimTypes("key2");
+        //}
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto login)
         {
             var user = _ICustomer.loginbyid(login.ContactNumber, login.Password);
+           // var r = _ICustomer.loginbyid(login.RollId);
             if (user != null)
             {
+              
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.NameIdentifier , user.CustomerId.ToString()),
                     new Claim(ClaimTypes.Name, user.Name),
-                    new Claim(ClaimTypes.Role, user.Password)
+                    new Claim(ClaimTypes.Role, user.RollName)
+              
 
-
-
-               };
+                };
                 var claimsIdentity = new ClaimsIdentity(claims, "Login");
 
-
-
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-                return Redirect(login.ReturnUrl == null ? "/CustomerMvc/CustomerView" : login.ReturnUrl);
+              
+                    return Redirect(login.ReturnUrl == null ? "/CustomerMvc/CustomerlView" : login.ReturnUrl);
+              
+
+                
+            
+               
             }
             else
                 return View(login);
@@ -86,7 +97,25 @@ namespace ECommerceCustomerOrder.Controllers
             return View(types);
 
         }
+        public ActionResult LoginAdd()
+        {
 
+            LoginDto types = new LoginDto();
+            var RollList = _ICustomer.GetRoll().ToList();
+            types.RollList = new List<SelectListItem>();
+            types.RollList.Add(new SelectListItem() { Value = "0", Text = "Select Type" });
+            types.RollList.AddRange(
+            _ICustomer.GetRoll().Select(a => new SelectListItem
+            {
+                Text = a.RollName,
+                Value = a.RollId.ToString(),
+
+            }));
+
+
+            return View(types);
+
+        }
         public IActionResult AddCustomer(Customer obj)
         
         
@@ -104,12 +133,16 @@ namespace ECommerceCustomerOrder.Controllers
             var customer=_ICustomer.GetCustomerDetail();
             return View(customer);
         }
+
+        [Authorize]
         public IActionResult CustomerDetailView(int Id)
         {
             var customer = _IorderDetail.GetCustomerOrderDetailsById(Id);
             return View(customer);
  
         }
+
+        [Authorize]
         public IActionResult Delete(int id)
         {
             var delete = _ICustomer.DeleteCustomerDetail(id);
@@ -117,6 +150,7 @@ namespace ECommerceCustomerOrder.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Update(int id)
         {
             var update=_ICustomer.GetCustomerDetailsById(id);
@@ -124,6 +158,7 @@ namespace ECommerceCustomerOrder.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Updatedetail(Customer update)
         { 
             var upd=_ICustomer.UpdateCustomerDetail(update);

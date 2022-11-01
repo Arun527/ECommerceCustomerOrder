@@ -1,6 +1,7 @@
 ﻿using ECommerceApi.Model;
 using ECommerceApi.RepositoryInterface;
 using ECommerceCustomerOrder.Model;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace ECommerceApi.RepositoryService
 {
@@ -48,6 +49,7 @@ namespace ECommerceApi.RepositoryService
                 throw;
             }
         }
+     
 
         public Message InsertCustomerDetail(Customer Obj)
         {
@@ -155,24 +157,36 @@ namespace ECommerceApi.RepositoryService
         {
             return Db.Roll.ToList();
         }
-
+        public Roll GetRollDetailsById(int RollId)
+        {
+          
+            try
+            {
+                var roll = Db.Roll.Find(RollId);
+                return roll;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public LoginDto loginbyid( string number, string password)
         {
             var Customer = (from customer in Db.Customer
 
                             join Roll in Db.Roll on customer.RollId equals Roll.RollId
-                            where customer.Password == password && customer.ContactNumber == number
+            
+                            where customer.Password == password && customer.ContactNumber == number 
+                            
                             select new LoginDto()
-                            {
-
+                            {                               
                                 ContactNumber = customer.ContactNumber,
                                 Password = customer.Password,
                                 CustomerId=customer.CustomerId,
-                                Name=customer.Name,
-                                RollId=Roll.RollId,
-                               RollName=Roll.RollName,
+                                Name = customer.Name,
+                                RollId = Roll.RollId,
+                                RollName =Roll.RollName,
                                 Gender=customer.Gender,
-
                             }).FirstOrDefault();
 
             return Customer;

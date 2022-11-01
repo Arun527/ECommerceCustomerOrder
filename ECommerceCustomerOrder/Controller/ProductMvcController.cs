@@ -1,5 +1,6 @@
 ﻿using ECommerceApi.Model;
 using ECommerceApi.RepositoryInterface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceCustomerOrder.Controllers
@@ -18,18 +19,20 @@ namespace ECommerceCustomerOrder.Controllers
         }
 
 
-
+        [Authorize]
         public IActionResult Index()
         {
             return View();
         }
 
+        [Authorize]
         public IActionResult Add()
         {
            
             return View("Add");
         }
 
+        [Authorize]
         public IActionResult AddProduct(Product obj)
         {
 
@@ -54,24 +57,27 @@ namespace ECommerceCustomerOrder.Controllers
             }
             return View("Add");
         }
+        [Authorize]
         public IActionResult ProductView()
         {
           var product=  _IProduct.GetProductDetail();
             return View(product);
         }
+        [Authorize]
         [HttpGet]
         public IActionResult Update(int id)
         {
             var update = _IProduct.GetProductDetailsById(id);
             return View("UpdateDetail", update);
         }
-
+        [Authorize]
         [HttpPost]
         public IActionResult UpdateDetail(Product obj)
         {
             var updatedetail = _IProduct.Updateproduct(obj);
             return RedirectToAction("ProductView");
         }
+        [Authorize]
         public IActionResult DeleteProduct(int  id)
         {
             var delete = _IProduct.Deleteproduct(id);

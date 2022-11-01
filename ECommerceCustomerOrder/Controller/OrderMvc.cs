@@ -22,13 +22,13 @@ namespace ECommerceCustomerOrder.Controllers
         {
             return View();
         }
-
+        [Authorize]
         public ActionResult Add()
         {
 
             return View("Add");
         }
-
+        [Authorize]
         public IActionResult AddOrder(Orders obj)
         {
             Message Msg = new Message();
@@ -46,13 +46,13 @@ namespace ECommerceCustomerOrder.Controllers
             return RedirectToAction("OrderView");
         }
 
-
+        [Authorize]
         public IActionResult OrderView()
         {
             var customer = _IOrder.GetOrder();
             return View(customer);
         }
-
+        [Authorize]
         public IActionResult Delete(int id)
         {
             var delete = _IOrder.DeleteOrder(id);
@@ -60,6 +60,7 @@ namespace ECommerceCustomerOrder.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Update(int id)
         {
             var update = _IOrder.GetOrderById(id);
@@ -67,6 +68,7 @@ namespace ECommerceCustomerOrder.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Updatedetail(Orders update)
         {
             var upd = _IOrder.UpdateOrder(update);

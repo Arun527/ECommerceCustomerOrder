@@ -20,7 +20,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.Name = ".AspNetCore.Cookies";
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(3);
     options.SlidingExpiration = true;
 });
 
