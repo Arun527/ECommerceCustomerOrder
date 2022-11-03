@@ -125,7 +125,7 @@ namespace ECommerceCustomerOrder.Controllers
             var role = User.Identity.GetClaimRole();
             if (role == "Admin")
             {
-
+                
                 return Json(delete);
             }
             else
