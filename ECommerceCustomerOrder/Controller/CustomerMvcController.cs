@@ -28,24 +28,20 @@ namespace ECommerceCustomerOrder.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            return RedirectToAction("CustomerView");
-        }
-
-        public IActionResult Login()
-       {
             return View();
         }
 
-        //public ActionResult Details()
-        //{
-        //    // reading a claim
-        //    var key2 = Claim.ClaimTypes("key2");
-        //}
+        
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+   
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto login)
         {
             var user = _ICustomer.loginbyid(login.ContactNumber, login.Password);
-           // var r = _ICustomer.loginbyid(login.RollId);
             if (user != null)
             {
               
@@ -61,7 +57,7 @@ namespace ECommerceCustomerOrder.Controllers
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
               
-                    return Redirect(login.ReturnUrl == null ? "/CustomerMvc/CustomerlView" : login.ReturnUrl);
+                    return Redirect(login.ReturnUrl == null ? "/OrderDetailMvc/Add" : login.ReturnUrl);
               
 
                 
@@ -80,18 +76,34 @@ namespace ECommerceCustomerOrder.Controllers
         }
         public ActionResult Add()
         {
-
+       
             LoginDto types = new LoginDto();
             var RollList = _ICustomer.GetRoll().ToList();
             types.RollList = new List<SelectListItem>();
-            types.RollList.Add(new SelectListItem() { Value = "0", Text = "Select Type" });
-            types.RollList.AddRange(
-            _ICustomer.GetRoll().Select(a => new SelectListItem
-            {
-                Text = a.RollName,
-                Value = a.RollId.ToString(),
 
-            }));
+            if (User.Identity.IsAuthenticated)
+            {
+                types.RollList.Add(new SelectListItem() { Value = "0", Text = "Select Type" });
+                types.RollList.AddRange(
+                _ICustomer.GetRoll().Select(a => new SelectListItem
+                {
+                    Text = a.RollName,
+                    Value = a.RollId.ToString(),
+
+                }));
+            }
+            else
+            {
+                
+                types.RollList.AddRange(
+                _ICustomer.GetRoll().Where(x => x.RollName == "Customer").Select(a => new SelectListItem
+                {
+                    Text = a.RollName,
+                    Value="1",
+
+                }));
+            }           
+          
            
 
             return View(types);
@@ -104,6 +116,7 @@ namespace ECommerceCustomerOrder.Controllers
             var RollList = _ICustomer.GetRoll().ToList();
             types.RollList = new List<SelectListItem>();
             types.RollList.Add(new SelectListItem() { Value = "0", Text = "Select Type" });
+
             types.RollList.AddRange(
             _ICustomer.GetRoll().Select(a => new SelectListItem
             {
@@ -121,13 +134,12 @@ namespace ECommerceCustomerOrder.Controllers
         
         {
             var customer = _ICustomer.InsertCustomerDetail(obj);
-            //TempData["AlertMessage"] = "Customer Created succesfully";
             return Json(customer);
            
         
         }
 
-        [Authorize]
+        [Authorize(Roles ="Admin")]
         public IActionResult CustomerView()
         {
             var customer=_ICustomer.GetCustomerDetail();
@@ -139,9 +151,14 @@ namespace ECommerceCustomerOrder.Controllers
         {
             var customer = _IorderDetail.GetCustomerOrderDetailsById(Id);
             return View(customer);
- 
         }
+        [Authorize]
+        public IActionResult CustomerDetailCheck(int Id)
+        {
+            var customer = _ICustomer.GetCustomerDetailsById(Id);
+            return View(customer);
 
+        }
         [Authorize]
         public IActionResult Delete(int id)
         {
@@ -160,9 +177,19 @@ namespace ECommerceCustomerOrder.Controllers
         [HttpPost]
         [Authorize]
         public IActionResult Updatedetail(Customer update)
-        { 
-            var upd=_ICustomer.UpdateCustomerDetail(update);
-            return RedirectToAction("CustomerView");
+        {  
+            string role = User.Identity.GetClaimRole();
+            if(role == "Admin"){
+                var upd = _ICustomer.UpdateCustomerDetail(update);
+                return RedirectToAction("CustomerView");
+            }
+            else
+            {
+                int Id = update.CustomerId;
+                var upd = _ICustomer.UpdateCustomerDetail(update);
+                return Redirect("CustomerDetailCheck?Id="+Id);
+            }
+            
         }
 
     }

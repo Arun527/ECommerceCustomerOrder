@@ -1,9 +1,19 @@
-﻿
+﻿@using ECommerceApi.Model
+@model List<Customer>
+@{
+    ViewData["Title"] = "CustomerView";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
 @{
     ViewData["Title"] = "Home page";
 }
 
+<style>
+    * {
+        font-family: 'Times New Roman', Times, serif;
+    }
+</style>
 <div class="text-center">
-    <h1 class="display-4">Welkufguhguegiruygruyuwcome</h1>
+    <h1 class="display-4" >Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>

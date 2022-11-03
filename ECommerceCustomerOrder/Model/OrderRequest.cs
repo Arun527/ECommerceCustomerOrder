@@ -4,6 +4,8 @@
     {
         public int CustomerId { get; set; }
         public List<ProductDetail> Products { get; set; }
+
+        public bool Role { get; set; }
     }
 
     public class ProductDetail

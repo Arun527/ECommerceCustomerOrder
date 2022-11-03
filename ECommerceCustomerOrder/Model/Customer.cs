@@ -13,8 +13,8 @@ namespace ECommerceApi.Model
         [Key]
         public int CustomerId { get; set; }
 
-        [ForeignKey ("Roll")]
-        public int RollId { get; set; }
+        [ForeignKey("Roll")]
+        public int RollId { get; set; } = 1;
 
 
         public string Name { get; set; }

@@ -60,3 +60,26 @@ function detailCustomer(customerid) {
 
 };
 
+//function deleteOrder(InVoiceNo) {
+//    let result = confirm("Are you sure you want to delete?");
+//    if (result) {
+//        $.ajax({
+//            debugger;
+//            type: "get",
+//            url: '/OrderDetailMvc/DeleteOrderDetail?InVoiceNo=' + InVoiceNo,
+//            contentType: 'application/json; charset=utf-8',
+//            dataType: 'json',
+//            success: function (response) {
+//                if (response.success == true) {
+//                    location.reload();
+//                }
+//                else {
+//                    alert(response.message);
+//                }
+//            },
+//            error: function () {
+//                alert("error");
+//            }
+//        });
+//    }
+//}

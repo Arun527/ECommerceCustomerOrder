@@ -112,6 +112,7 @@ namespace ECommerceApi.RepositoryService
                 Db.SaveChanges();
                 Msg.success = true;
                 Msg.message = "The order Added Succesfully";
+                Msg.Role=orderDetail.Role;
                 return Msg;
             }
             catch (Exception)
@@ -147,17 +148,23 @@ namespace ECommerceApi.RepositoryService
 
         }
 
-        public OrderDetail DeleteOrderDetail(int OrderDetaileId)
+        public Message DeleteOrderDetail(int OrderDetaileId)
         {
+            Message obj = new Message();
+            obj.success = false;
             try
             {
                 var order = Db.OrderDetail.Find(OrderDetaileId);
                 Db.Remove(order);
                 Db.SaveChanges();
-                return order;
+                obj.message = "Order deleted Succesfully";
+                obj.success = true;
+                return obj;
             }
             catch (Exception)
             {
+                obj.message = "Order delete Failed";
+                obj.success = false;
                 throw new Exception("This id not registered in order table");
             }
         }

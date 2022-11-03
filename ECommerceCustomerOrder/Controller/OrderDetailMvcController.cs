@@ -4,6 +4,7 @@ using ECommerceCustomerOrder.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace ECommerceCustomerOrder.Controllers
@@ -26,35 +27,69 @@ namespace ECommerceCustomerOrder.Controllers
             _IProduct = iProduct;
         }
 
+
+
         [Authorize]
         public ActionResult Add()
         {
+            string role = User.Identity.GetClaimRole();
+            string Id = User.Identity.GetClaimValue();
             ProductDTO types = new ProductDTO();
-            var productList = _IProduct.GetProductDetail().ToList();
-            types.ProductList = new List<SelectListItem>();
-            types.ProductList.Add(new SelectListItem() { Value = "0", Text = "Select Prodcut" });
-            types.ProductList.AddRange(
-            _IProduct.GetProductDetail().Select(a => new SelectListItem
+            if (User.Identity.IsAuthenticated)
             {
-                Text = a.Name,
-                Value = a.ProductId.ToString(),
+               
+                var productList = _IProduct.GetProductDetail().ToList();
+                types.ProductList = new List<SelectListItem>();
+                types.ProductList.Add(new SelectListItem() { Value = "0", Text = "Select Prodcut" });
+                types.ProductList.AddRange(
+                _IProduct.GetProductDetail().Select(a => new SelectListItem
+                {
+                    Text = a.Name,
+                    Value = a.ProductId.ToString(),
 
-            }));
-            types.CustomerList = _ICustomer.GetCustomerDetail().Select(a => new SelectListItem
-            {
-                Text = a.Name,
-                Value = a.CustomerId.ToString(),
+                }));
+                if (role == "Admin")
+                {
+                    types.CustomerList = _ICustomer.GetCustomerDetail().Select(a => new SelectListItem
+                    {
+                        Text = a.Name,
+                        Value = a.CustomerId.ToString(),
 
-            }).ToList();
+                    }).ToList();
+              
+                }
+                else
+                {
+                    types.CustomerList = _ICustomer.GetCustomerDetail().Where(x => x.CustomerId.ToString() == Id).Select(a => new SelectListItem
+                    {
+                        Text = a.Name,
+                        Value = a.CustomerId.ToString(),
+
+                    }).ToList();
+                   
+                }
+               
+                return View(types);
+            }
 
             return View(types);
-
         }
         [Authorize]
         public IActionResult AddOrder([FromBody]OrderRequest request)
         {
+            var role = User.Identity.GetClaimRole();
+            if (role == "Admin")
+            {
+                request.Role=true;
+            }
+            else
+            {
+                request.Role = false;
+            }
             var Order = _IOrderDetail.InsertOrderDetail(request);
+
             return Json(Order);
+          //  return View("Add");
         }
         [Authorize]
         public IActionResult OrderDetailView()
@@ -87,7 +122,16 @@ namespace ECommerceCustomerOrder.Controllers
         public IActionResult DeleteOrderDetail(int id)
         {
             var delete = _IOrderDetail.DeleteOrderDetail(id);
-            return RedirectToAction("OrderDetailView");
+            var role = User.Identity.GetClaimRole();
+            if (role == "Admin")
+            {
+
+                return Json(delete);
+            }
+            else
+            {
+                return Json(delete);
+            }
         }
     }
 }

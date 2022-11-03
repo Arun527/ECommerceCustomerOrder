@@ -9,7 +9,8 @@ namespace ECommerceApi.Model {
         public int Quantity { get; set; }
        public List<SelectListItem> ProductList { get; set; }
        public List<SelectListItem> CustomerList { get; set; }
-
+     
+  
 
     }
 }

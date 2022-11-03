@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Http.Features;
 
 namespace ECommerceApi.RepositoryService
 {
-    public class CustomerService : ICustomer
+  
+        public class CustomerService : ICustomer
     {
         public ECommmerceDbContext Db;
 
@@ -38,7 +39,7 @@ namespace ECommerceApi.RepositoryService
         public Customer GetCustomerDetailsById(int customerId)
         {
 
-            Customer _Obj;
+            
             try
             {
                 var o = Db.Customer.Find(customerId);
@@ -96,6 +97,8 @@ namespace ECommerceApi.RepositoryService
                 {
                     cus.Name = Obj.Name;
                     cus.ContactNumber = Obj.ContactNumber;
+                    cus.Password = Obj.Password;
+                    cus.Gender = Obj.Gender;
                     Db.Update(cus);
                     Db.SaveChanges();
                     msg.success = true;

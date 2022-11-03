@@ -6,7 +6,7 @@ $(document).ready(function () {
 
 
         var customerId = $('#CustomerId option:selected').val();
-        debugger;
+       
         if (customerId == null || customerId == 0) {
             $('#errormsg').html("customer is required");
             return;
@@ -21,7 +21,7 @@ $(document).ready(function () {
             "Products": productDetails
 
         };
-        debugger;
+      
         $.ajax({
 
             url: "/OrderDetailMvc/AddOrder",
@@ -32,7 +32,13 @@ $(document).ready(function () {
             success: function (response) {
               
                 alert(response.message);
-                setTimeout(function () { window.location = '/OrderDetailMvc/Invoice'; }, 1000);
+                if (response.role == true) {
+                    setTimeout(function () { window.location = '/OrderDetailMvc/Invoice'; }, 1000);
+                }
+                else {
+                    setTimeout(function () { window.location = '/OrderDetailMvc/Add'; }, 1000);
+                }
+               
               
             },
             error: function () {
@@ -46,7 +52,7 @@ $(document).ready(function () {
     var obj;
     $("#showProduct").click(function () {
         $('#errormsg').html("");
-        debugger;
+       
         var customerId = $('#CustomerId option:selected').val();
         var customerName = $('#CustomerId :selected').text();
         var productId = $('#ProductId :selected').val();
@@ -96,6 +102,29 @@ $(document).ready(function () {
     });
 
 });   
-function deleteOrder() {
-alert("Are you sure want to delete this");
+
+
+function deleteOrderInvoice(InVoiceNo) {
+    let result = confirm("Are you sure you want to delete?");
+    if (result) {
+        $.ajax({
+
+            type: "get",
+            url: '/OrderDetailMvc/DeleteOrderDetail?Id=' + InVoiceNo,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (response) {
+                if (response.success == true) {
+                    alert(response.message);
+                    location.reload();
+                }
+                else {
+                    alert(response.message);
+                }
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+    }
 }

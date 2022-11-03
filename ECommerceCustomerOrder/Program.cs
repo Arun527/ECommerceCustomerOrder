@@ -13,9 +13,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
             .AddCookie(options =>
             {
                 options.LoginPath = "/CustomerMvc/Login";
-
-
-
             });
 builder.Services.ConfigureApplicationCookie(options =>
 {

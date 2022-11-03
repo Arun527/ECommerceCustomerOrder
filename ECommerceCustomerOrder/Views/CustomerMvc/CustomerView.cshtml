@@ -4,11 +4,7 @@
     ViewData["Title"] = "CustomerView";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
-@*@if(TempData["AlertMessage"] !=null ){
-    <div class="alert alert-success">
-        <strong> Success !  </strong>  @TempData["AlertMessage"]
-    </div>
-}*@
+
 
 
 <body >
@@ -28,10 +24,12 @@
                   <th > CustomerId      </th>
                   
                   <th> CustomerName </th>
-
+             @*     <th>Role</th>*@
 
                   <th>        Mobile  </th>
-
+                 
+                  <th>Password</th>
+                   <th>Gender</th>
                 <th data-orderable="false" id="deletebutton" >  Action </th>
             </tr>
          </thead> 
@@ -44,6 +42,9 @@
                     <td >  @item.CustomerId  </td>
                     <td>   @item.Name </td>
                     <td>   @item.ContactNumber  </td>
+                     <td>@item.Password</td>
+                     <td>@item.Gender</td>
+                   
                  
                  
                     <td style="text-align:center">
@@ -86,7 +87,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css" />
 
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
-
+    <script src="~/js/customer.js"></script>
     <script>
         $(document).ready(function () {
             $("#dataTable").DataTable();
@@ -94,5 +95,6 @@
     </script>
 }
 
-
-    
+@*    @section scripts{
+    <script src="~/js/customer.js"></script>
+}*@

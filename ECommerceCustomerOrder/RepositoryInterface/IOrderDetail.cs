@@ -11,6 +11,6 @@ namespace ECommerceApi.RepositoryInterface
         public IEnumerable<InvoiceDetail> GetCustomerOrderList();
         public Message InsertOrderDetail(OrderRequest orderDetail);
         public OrderDetail UpdateOrderDetail(OrderDetail orderDetail);
-        public OrderDetail DeleteOrderDetail(int orderDetailId);
+        public Message DeleteOrderDetail(int orderDetailId);
     }
 }
