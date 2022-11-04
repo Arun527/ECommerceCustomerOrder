@@ -8,11 +8,18 @@ namespace ECommerceApi.Model
         [Key]
         public int OrderDetailId { get; set; }
 
+
+        [ForeignKey("Customer")]
+        public virtual int CustomerId { get; set; }
+
+        [ForeignKey("CustomerId")]
+        public virtual Customer Customerid { get; set; }
+
+
         [ForeignKey("Orders")]
         public int OrderId { get; set; }
 
-        [ForeignKey("Customer")]
-        public int CustomerId { get; set; }
+       
 
         [ForeignKey("Product")]
 
@@ -20,6 +27,7 @@ namespace ECommerceApi.Model
 
         [Required(ErrorMessage = "Please Enter Minimum Quanity")]
         [Range(1, 999)]
+
 
         public int Quantity { get; set; }
     }

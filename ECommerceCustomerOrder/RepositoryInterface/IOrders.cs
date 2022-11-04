@@ -1,4 +1,5 @@
 ﻿using ECommerceApi.Model;
+using ECommerceCustomerOrder.Model;
 
 namespace ECommerceApi.RepositoryInterface
 {

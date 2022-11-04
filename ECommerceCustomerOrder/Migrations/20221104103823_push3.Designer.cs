@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerceCustomerOrder.Migrations
 {
     [DbContext(typeof(ECommmerceDbContext))]
-    [Migration("20221028095738_CustomerProduct")]
-    partial class CustomerProduct
+    [Migration("20221104103823_push3")]
+    partial class push3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -80,26 +80,9 @@ namespace ECommerceCustomerOrder.Migrations
 
                     b.HasKey("OrderDetailId");
 
+                    b.HasIndex("CustomerId");
+
                     b.ToTable("OrderDetail");
-                });
-
-            modelBuilder.Entity("ECommerceApi.Model.Orders", b =>
-                {
-                    b.Property<int>("OrderId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"), 1L, 1);
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Orderdate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("OrderId");
-
-                    b.ToTable("orders");
                 });
 
             modelBuilder.Entity("ECommerceApi.Model.Product", b =>
@@ -123,6 +106,27 @@ namespace ECommerceCustomerOrder.Migrations
                     b.ToTable("Product");
                 });
 
+            modelBuilder.Entity("ECommerceCustomerOrder.Model.Orders", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"), 1L, 1);
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Orderdate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("OrderId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("orders");
+                });
+
             modelBuilder.Entity("ECommerceCustomerOrder.Model.Roll", b =>
                 {
                     b.Property<int>("RollId")
@@ -141,6 +145,28 @@ namespace ECommerceCustomerOrder.Migrations
                     b.HasKey("RollId");
 
                     b.ToTable("Roll");
+                });
+
+            modelBuilder.Entity("ECommerceApi.Model.OrderDetail", b =>
+                {
+                    b.HasOne("ECommerceApi.Model.Customer", "Customerid")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customerid");
+                });
+
+            modelBuilder.Entity("ECommerceCustomerOrder.Model.Orders", b =>
+                {
+                    b.HasOne("ECommerceApi.Model.Customer", "Customerid")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customerid");
                 });
 #pragma warning restore 612, 618
         }

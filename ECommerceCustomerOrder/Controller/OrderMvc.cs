@@ -1,5 +1,6 @@
 ﻿using ECommerceApi.Model;
 using ECommerceApi.RepositoryInterface;
+using ECommerceCustomerOrder.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

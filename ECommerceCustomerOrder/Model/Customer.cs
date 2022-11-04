@@ -19,7 +19,7 @@ namespace ECommerceApi.Model
 
         public string Name { get; set; }
 
-       
+
         [System.ComponentModel.DataAnnotations.StringLength(13, MinimumLength = 10)]
         [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Please enter the Correct Customer Number")]
         [Unique]
@@ -31,7 +31,7 @@ namespace ECommerceApi.Model
         public string? Gender { get; set; }
 
         [Required]
-        [RegularExpression("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}", 
+        [RegularExpression("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}",
         ErrorMessage = "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters")]
         public string Password { get; set; }
 
