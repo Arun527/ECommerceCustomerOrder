@@ -10,7 +10,7 @@ namespace ECommerceCustomerOrder.Model
         [Key]
         public int OrderId { get; set; }
 
-        [ForeignKey("Customer")]
+        [Display(Name ="Customer")]
         public virtual int CustomerId { get; set; }
 
         [ForeignKey("CustomerId")]

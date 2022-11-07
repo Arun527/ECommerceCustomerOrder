@@ -12,8 +12,9 @@ namespace ECommerceApi.Model
         [ForeignKey("Customer")]
         public virtual int CustomerId { get; set; }
 
+        
         [ForeignKey("CustomerId")]
-        public virtual Customer Customerid { get; set; }
+        public virtual Customer Customer { get; set; }
 
 
         [ForeignKey("Orders")]
