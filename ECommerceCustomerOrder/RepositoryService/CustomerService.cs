@@ -2,6 +2,7 @@
 using ECommerceApi.RepositoryInterface;
 using ECommerceCustomerOrder.Model;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceApi.RepositoryService
 {
@@ -23,7 +24,7 @@ namespace ECommerceApi.RepositoryService
 
             try
             {
-                var Cus = Db.Customer.ToList();
+                var Cus = Db.Customer.Include(c=>c.CustomerId).ToList();
                 return Cus;
             }
 
@@ -158,14 +159,14 @@ namespace ECommerceApi.RepositoryService
         }
         public IEnumerable<Roll> GetRoll()
         {
-            return Db.Roll.ToList();
+            return Db.Role.ToList();
         }
         public Roll GetRollDetailsById(int RollId)
         {
           
             try
             {
-                var roll = Db.Roll.Find(RollId);
+                var roll = Db.Role.Find(RollId);
                 return roll;
             }
             catch (Exception)
@@ -173,16 +174,14 @@ namespace ECommerceApi.RepositoryService
                 throw;
             }
         }
+        
         public LoginDto loginbyid( string number, string password)
         {
             var Customer = (from customer in Db.Customer
-
-                            join Roll in Db.Roll on customer.RollId equals Roll.RollId
-            
-                            where customer.Password == password && customer.ContactNumber == number 
-                            
+                            join Roll in Db.Role on customer.RollId equals Roll.RollId
+                            where customer.Password == password && customer.ContactNumber == number                            
                             select new LoginDto()
-                            {                               
+                            {                                 
                                 ContactNumber = customer.ContactNumber,
                                 Password = customer.Password,
                                 CustomerId=customer.CustomerId,

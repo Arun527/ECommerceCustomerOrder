@@ -4,6 +4,7 @@ using ECommerceCustomerOrder.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerceCustomerOrder.Migrations
 {
     [DbContext(typeof(ECommmerceDbContext))]
-    partial class ECommmerceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221107100753_commit11")]
+    partial class commit11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,7 +144,7 @@ namespace ECommerceCustomerOrder.Migrations
 
                     b.HasKey("RollId");
 
-                    b.ToTable("Role");
+                    b.ToTable("Roll");
                 });
 
             modelBuilder.Entity("ECommerceApi.Model.OrderDetail", b =>
@@ -158,13 +160,13 @@ namespace ECommerceCustomerOrder.Migrations
 
             modelBuilder.Entity("ECommerceCustomerOrder.Model.Orders", b =>
                 {
-                    b.HasOne("ECommerceApi.Model.Customer", "Customer")
+                    b.HasOne("ECommerceApi.Model.Customer", "Customerid")
                         .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
+                    b.Navigation("Customerid");
                 });
 #pragma warning restore 612, 618
         }

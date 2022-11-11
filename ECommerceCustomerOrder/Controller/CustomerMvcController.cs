@@ -57,7 +57,7 @@ namespace ECommerceCustomerOrder.Controllers
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
               
-                    return Redirect(login.ReturnUrl == null ? "/OrderDetailMvc/Add" : login.ReturnUrl);
+                return Redirect(login.ReturnUrl == null ? "/OrderDetailMvc/Add" : login.ReturnUrl);
               
 
                 

@@ -15,6 +15,6 @@ namespace ECommerceCustomerOrder.Model
         public DbSet<Orders> orders { get; set; }
         public DbSet<OrderDetail> OrderDetail { get; set; }
 
-        public DbSet<Roll> Roll { get; set; }
+        public DbSet<Roll> Role { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace ECommerceCustomerOrder.Model
         public virtual int CustomerId { get; set; }
 
         [ForeignKey("CustomerId")]
-        public virtual Customer Customerid { get; set; }
+        public virtual Customer Customer { get; set; }
 
         [DefaultValue("Orderdate")]
         public DateTime Orderdate { get; set; } = DateTime.Now;

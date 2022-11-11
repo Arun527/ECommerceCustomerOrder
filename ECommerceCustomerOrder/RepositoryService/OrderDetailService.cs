@@ -2,6 +2,7 @@
 using ECommerceApi.RepositoryInterface;
 
 using ECommerceCustomerOrder.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceApi.RepositoryService
 {
@@ -18,7 +19,7 @@ namespace ECommerceApi.RepositoryService
         {
             try
             {
-                var ordlist = Db.OrderDetail.ToList();
+                var ordlist = Db.OrderDetail.Include(x=>x.Customer).ToList();
 
                 return ordlist;
             }
